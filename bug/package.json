@@ -1,0 +1,17 @@
+{
+  "name": "zixxv1-whatsapp-bug-sender",
+  "version": "1.0.0",
+  "description": "Premium WhatsApp Bug Sender Dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4",
+    "qrcode": "^1.5.1",
+    "whatsapp-web.js": "^1.19.4"
+  },
+  "author": "ZixxV1",
+  "license": "PROPRIETARY"
+}
