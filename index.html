@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZixxV1 Premium - WhatsApp Bug Sender</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
+</head>
+<body>
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar-menu" id="sidebar">
+        <div class="menu-header">
+            <h3><i class="fas fa-bug"></i> ZixxV1 Menu</h3>
+            <button class="close-menu" id="closeMenu">&times;</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#" id="menuDashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#" id="menuAddSender"><i class="fas fa-qrcode"></i> Connect WhatsApp Sender</a></li>
+            <li><a href="#" id="menuLogs"><i class="fas fa-history"></i> Sent Logs</a></li>
+            <li><a href="#" id="menuUpcoming"><i class="fas fa-rocket"></i> Upcoming Features</a></li>
+            <li><a href="#" id="menuSettings"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="#" id="menuHelp"><i class="fas fa-question-circle"></i> Help & Docs</a></li>
+        </ul>
+        <div class="menu-footer">
+            <p>v1.0 • <span id="statusIndicator" class="status-online">● Online</span></p>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div class="main-container">
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="logo-title">
+                    <img src="assets/images/logo.png" alt="ZixxV1 Logo">
+                    <h1>ZixxV1 <span class="badge-premium">PREMIUM</span></h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="music-toggle-container">
+                    <span class="music-label">Music:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="musicToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="music-status" id="musicStatus">ON</span>
+                </div>
+                <div class="user-info">
+                    <span class="role-badge">OWNER</span>
+                    <span class="exp-badge">Exp: 3rd</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD CONTENT -->
+        <div class="dashboard-content">
+            <div class="card main-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-crosshairs"></i> TARGET NUMBER</h2>
+                    <p class="card-subtitle">Enter the WhatsApp number you want to send bug to</p>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="targetNumber"><i class="fas fa-phone-alt"></i> WhatsApp Number</label>
+                        <input type="text" id="targetNumber" placeholder="e.g. 6281234567890" maxlength="15">
+                        <small class="input-hint">Include country code without '+' (e.g. 628xx for Indonesia)</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="bugType"><i class="fas fa-bug"></i> SELECT BUG</label>
+                        <select id="bugType">
+                            <option value="" disabled selected>Select Bug...</option>
+                            <option value="crash">Crash Bug (Force Close)</option>
+                            <option value="spam">Infinite Message Spam</option>
+                            <option value="lag">Device Lag Exploit</option>
+                            <option value="storage">Storage Flood Bug</option>
+                            <option value="notif">Notification Loop</option>
+                            <option value="custom">Custom Payload</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="customPayload" class="payload-label" id="payloadLabel" style="display:none;">
+                            <i class="fas fa-code"></i> CUSTOM PAYLOAD (Base64)
+                        </label>
+                        <textarea id="customPayload" placeholder="Enter base64 encoded payload..." style="display:none;"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn-send" id="sendBug">
+                            <i class="fas fa-paper-plane"></i> SEND BUG
+                        </button>
+                        <button class="btn-clear" id="clearForm">
+                            <i class="fas fa-eraser"></i> CLEAR
+                        </button>
+                    </div>
+
+                    <div class="status-display">
+                        <p class="status-text" id="statusText">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="status-initial">@Initial ~0~</span>
+                        </p>
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card log-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-history"></i> RECENT ACTIVITY</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="log-list" id="logList">
+                        <li>No recent activity. Bugs sent will appear here.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTIFICATION CONTAINER -->
+        <div class="notification-container" id="notificationContainer">
+            <!-- Notifications will be injected here by JS -->
+        </div>
+
+        <!-- AUDIO ELEMENTS -->
+        <audio id="bgMusic" loop>
+            <source src="assets/sounds/bg-music.mp3" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+        <audio id="notifSound">
+            <source src="assets/sounds/notification.mp3" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+
+        <!-- FOOTER -->
+        <footer class="dashboard-footer">
+            <p>© 2024 ZixxV1 Premium • <span id="connectionStatus" class="status-connected">Connected to Server</span> • Last Sync: <span id="lastSync">Just now</span></p>
+        </footer>
+    </div>
+
+    <!-- MODAL FOR WHATSAPP PAIRING -->
+    <div class="modal-overlay" id="pairingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-qrcode"></i> Connect WhatsApp Sender</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="qr-container">
+                    <div class="qr-placeholder" id="qrPlaceholder">
+                        <!-- QR akan di-generate/ditempatkan di sini -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WA_%7Btemp_pairing_code%7D" alt="Pairing QR">
+                    </div>
+                    <p class="qr-instruction">
+                        1. Open WhatsApp on your phone<br>
+                        2. Tap Menu → WhatsApp Web<br>
+                        3. Scan this QR code to connect
+                    </p>
+                </div>
+                <div class="manual-pairing">
+                    <h4>Or Enter Pairing Code Manually</h4>
+                    <input type="text" id="pairingCode" placeholder="e.g., ABCD-1234-EFGH">
+                    <button class="btn-pair" id="manualPair">Pair Manually</button>
+                </div>
+                <div class="pairing-status">
+                    <p id="pairingStatus">Status: Waiting for pairing...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
+    <script src="music-toggle.js"></script>
+    <script src="menu-sidebar.js"></script>
+</body>
+</html>
